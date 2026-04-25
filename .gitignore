@@ -4,6 +4,7 @@
 bin/
 obj/
 out/
+.vscode/
 
 # =========================
 # User-specific files
