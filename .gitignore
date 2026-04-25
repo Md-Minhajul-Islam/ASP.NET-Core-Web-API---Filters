@@ -1,7 +1,84 @@
-echo "# ASP.NET-Core-Web-API---Filters" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Md-Minhajul-Islam/ASP.NET-Core-Web-API---Filters.git
-git push -u origin main
+# =========================
+# Build results
+# =========================
+bin/
+obj/
+out/
+
+# =========================
+# User-specific files
+# =========================
+*.user
+*.userosscache
+*.suo
+*.rsuser
+
+# =========================
+# Visual Studio
+# =========================
+.vs/
+*.vsp
+*.vspx
+*.sap
+
+# =========================
+# Rider / VS Code
+# =========================
+.idea/
+.vscode/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# ASP.NET Core
+# =========================
+appsettings.Development.json
+appsettings.*.json
+
+# =========================
+# Publish output
+# =========================
+publish/
+wwwroot/dist/
+
+# =========================
+# Entity Framework
+# =========================
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+# =========================
+# NuGet
+# =========================
+*.nupkg
+.nuget/packages/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Coverage / Test results
+# =========================
+TestResults/
+coverage/
+
+# =========================
+# Secrets
+# =========================
+secrets.json
+.env
+.env.*
+
+# =========================
+# Others
+# =========================
+*.swp
+*.tmp
