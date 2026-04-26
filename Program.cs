@@ -27,7 +27,7 @@ namespace AuthorizationFilterDemo
             // Register Authentication with JWT Bearer scheme
             builder.Services.AddAuthentication(options =>
             {
-                // These two options set JWT Bearer as the default scheme for authentication and challenge.
+                // These three options set JWT Bearer as the default scheme for authentication and challenge.
                 // This means the middleware will look for JWT tokens in incoming requests by default.
 
                 // Set the default scheme used for authentication — this means how the app will try to authenticate incoming requests
@@ -52,15 +52,6 @@ namespace AuthorizationFilterDemo
                     // The key used to sign tokens — must match the key used to generate tokens
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)) // Use a symmetric key from configuration for token validation.
                 };
-            });
-
-            //Define a policy
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AdminAndManager", policy =>
-                    policy.RequireRole("Admin")    // must have Admin
-                          .RequireRole("Manager")  // AND must also have Manager
-                );
             });
 
             // builder.Services.AddEndpointsApiExplorer();
