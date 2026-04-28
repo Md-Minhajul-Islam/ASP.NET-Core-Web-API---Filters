@@ -1,41 +1,40 @@
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using ExceptionFiltersDemo.Filters;
+using ExceptionFiltersDemo.Middlewares;
+namespace ExceptionFiltersDemo
 {
-    app.MapOpenApi();
-}
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-app.UseHttpsRedirection();
+            // Add services to the container.
+            builder.Services.AddControllers(options =>
+            {
+                // Register the Exception Filter Globally
+                // Remove this for Middleware Exception Handler
+                options.Filters.Add<CustomExceptionFilter>();
+            })
+            .AddJsonOptions(options =>
+            {
+               // Disable camelCase in JSON output, preserve property names as defined in C# classes
+               options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            });
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+            var app = builder.Build();
 
-app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+            app.UseHttpsRedirection();
+
+            
+            //app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
 }
